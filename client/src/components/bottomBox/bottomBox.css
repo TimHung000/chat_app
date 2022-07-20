@@ -1,0 +1,18 @@
+/* Bottom Box Layout */
+.bottomBox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+.bottomBox > .bottomLeft {
+    width: 32.5%;
+    height: 100%;
+    border-right: 1px solid var(--main-color);
+}
+
+.bottomBox > .bottomRight {
+    width: 67.5%;
+    height: 100%;
+}
+
+

@@ -1,0 +1,29 @@
+/* layout and background */
+.home {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-color: var(--sec-bg-color);
+}
+
+.homeContainer {
+    width: 1024px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.homeContainer > .top {
+    height: 45px;
+    width: 100%;
+    background-color: var(--main-topbar-color);
+}
+
+.homeContainer > .bottom {
+    height: calc(100% - 45px);
+    width: 100%;
+    display: flex;
+    background-color: var(--main-bg-color);
+}
+

@@ -1,0 +1,39 @@
+/* friend or chat list */
+.friendListBox a {
+    text-decoration: none;
+}
+
+.active .friendListItem{
+    background-color: var(--main-color);
+}
+
+.friendListItem {
+    align-items: center;
+    height: 72px;
+    padding: 12px;
+    display: flex;
+    gap: 12px;
+}
+
+.friendListItem:hover {
+    background-color: var(--main-color);
+}
+
+.friendListItem > .left > img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.friendListItem > .middle {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.friendListItem > .middle > .name {
+    font-weight: 700;
+    color: black;
+}

@@ -1,0 +1,31 @@
+.topBarContainer {
+    display: flex;
+    height: 100%;
+}
+
+.topBarContainer > .left {
+    width: 32.5%;
+    display: flex;
+    padding: 10px 20px;
+    align-items: center;
+    justify-content: space-between;
+    border-right: 1px solid var(--main-color);
+}
+
+.topBarContainer > .left > .title {
+    display: flex;
+    align-items: center;
+}
+
+.topBarContainer > .left > .title > h2 {
+    color: var(--main-color);
+}
+
+.topBarContainer > .left > .title > h2:hover {
+    color: var(--main-color-light)
+}
+
+.topBarContainer > .right {
+    width: 67.5%;
+}
+

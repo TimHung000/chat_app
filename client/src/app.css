@@ -1,0 +1,22 @@
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.hide {
+    display: hidden;
+}
+
+:root {
+    --sec-bg-color: rgb(198, 206, 227);
+    --main-bg-color: white;
+    --main-topbar-color: rgb(70, 77, 93);
+    --main-color: rgba(220,220,220,1);
+    --main-color-light: white;
+    --main-color-dark: rgba(150,150,150,1);
+    --main-color-green: rgb(34, 191, 34);
+}
