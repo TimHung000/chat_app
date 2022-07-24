@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 
 
-const getMessage = (messageParam , options = {} ) => {
-    if(messageParam[1] > 40)
+const getMessage = (messageParam, options = {}) => {
+    if (messageParam[1] > 40)
         return [];
-    let messages = Array.from({ length: messageParam[1]-messageParam[0]+1 }, (_,i) => {
+    let messages = Array.from({ length: messageParam[1] - messageParam[0] + 1 }, (_, i) => {
         return {
             sender: 1233,
-            message: `${messageParam[0]+i}: test 123`,
+            message: `${messageParam[0] + i}: test 123`,
             time: Date.now(),
         }
     })
@@ -16,12 +16,13 @@ const getMessage = (messageParam , options = {} ) => {
 }
 
 
-const useMessages = (messageNum) => {
-    const [results, setResults] = useState([]);
+const useMessages = (currentLastMessage) => {
+    const [messages, setMessages] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const [error, setError] = useState({});
     const [hasNextMessage, setHasNextMessage] = useState(false);
+
 
     useEffect(() => {
         setIsLoading(true);
@@ -33,7 +34,7 @@ const useMessages = (messageNum) => {
         const messages = getMessage(messageNum);
 
 
-        setResults(prev => [...prev, ...messages]);
+        setMessages(prev => [...prev, ...messages]);
         setHasNextMessage(Boolean(messages.length));
         setIsLoading(false);
 
@@ -55,9 +56,59 @@ const useMessages = (messageNum) => {
 
         return () => controller.abort();
     }, [messageNum])
-
-
     return { isLoading, isError, error, results, hasNextMessage }
 }
 
+
 export default useMessages;
+
+export const useChatRooms = (userId) => {
+    const [chatRooms, setChatRooms] = useState([]);
+    const [isFetching, setIsFetching] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const [error, setError] = useState({});
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        const fetchChatRoom = async () => {
+            setIsFetching(true);
+            setIsError(false);
+            setError({});
+            try {
+                const chatRooms = await axios.get(`/chatroom/${userId}`, { signal: controller.signal });
+                // console.log(chatRooms);
+                const friends = await Promise.all(
+                    chatRooms.map(async (chatRoom, index) => {
+                        const friendId =
+                            chatRoom.roomParticipant.filter((participantId) =>
+                                participantId !== userId
+                            );
+                        return await getUser(friendId);
+                    })
+                );
+
+                const chatRoomsWithFriendInfo =
+                    chatRooms.map((chatRoom, index) => {
+                        Object.assign({}, chatRoom, friends[index]);
+                    });
+
+                setChatRooms(chatRoomsWithFriendInfo);
+                setIsFetching(false);
+                setIsError(false);
+            } catch (err) {
+                console.log(err);
+                setIsFetching(false);
+                if (controller.signal.aborted) return;
+                setIsError(true);
+                setError({ message: err.message })
+            }
+        }
+
+        fetchChatRoom();
+
+        return () => controller.abort();
+    }, [])
+
+    return { chatRooms, isFetching, isError, error };
+};
