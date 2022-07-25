@@ -1,18 +1,37 @@
-const express = require("express");
-const app = express();
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const multer = require("multer");
-const cookieParser = require("cookie-parser")
-const cors = require("cors");
-const corsOptions = require('./config/corsOptions');
-const credentials = require('./middleware/credentials.js');
 const path = require("path");
+const http = require("http");
+const express = require("express");
+const socketio = require("socket.io");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+
+
+
+
+const credentials = require('./middleware/credentials.js');
+const corsOptions = require('./config/corsOptions');
 const connectDB = require('./config/dbConnection');
 const PORT = process.env.PORT || 8800;
 dotenv.config();
+
+const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
+
+
+// Run when client connects
+io.on("connection", (socket) => {
+  console.log("a new user connected.");
+
+  socket.on("disconnect", () => {
+    console.log("a user had left.");
+  })
+})
 
 
 // connect to DB
@@ -30,7 +49,7 @@ app.use(credentials);
 app.use(cors(corsOptions));
 
 // build-in middleware to handle urlencoded from data
-app.use(express.urlencoded({ extends: true }));
+// app.use(express.urlencoded({ extends: true }));
 
 // change req to json
 app.use(express.json());
@@ -70,14 +89,12 @@ app.use("/", express.static(path.join(__dirname, "/public")));
 app.use("/", require("./routes/root"));
 app.use("/auth", require("./routes/auth"));
 app.use("/chatroom", require("./routes/chatRoom"));
-app.use("/users", require("./routes/users"))
-app.use("/friends", require("./routes/friends"))
-
+app.use("/user", require("./routes/user"));
 
 
 db.once("open", function () {
   console.log('connected to MongoDB');
-  app.listen(PORT, () => {
-    console.log("Backend server is running!");
+  server.listen(PORT, () => {
+    console.log(`Backend server is running on port ${PORT}!`);
   });
 });

@@ -24,7 +24,7 @@ const registerNewAccount = async (req, res) => {
             "email": email,
             "password": hashedPassword
         });
-        // console.log({ "success created": result });
+        
         res.status(201).json({
             "success created": {
                 "username": username,
@@ -78,10 +78,6 @@ const handleLogin = async (req, res) => {
                 expiresIn: '1d'
             }
         )
-        
-        // console.log("login:")
-        // console.log(`refreshtoken : ${refreshToken}`);
-        // console.log(`accesstoken : ${accessToken}`);
 
         foundUser.refreshToken = refreshToken;
         const result = await foundUser.save();
@@ -106,17 +102,16 @@ const handleLogin = async (req, res) => {
             }
         });
     }
-
 };
 
 
 const handleLogout = async (req, res) => {
     const cookies = req.cookies;
-    if (!cookies?.jwt) {
+    if (!cookies?.refreshToken) {
         // No content
         return res.sendStatus(204);
     }
-    const refreshToken = cookies.jwt;
+    const refreshToken = cookies.refreshToken;
 
     const foundUser = await User.findOne({ refreshToken }).exec();
     if (!foundUser) {
@@ -135,7 +130,6 @@ const handleLogout = async (req, res) => {
 
 const handleRefreshToken = async (req, res) => {
     const cookies = req.cookies;
-    // console.log(`refreshtoken : ${cookies?.refreshToken}`)
     if (!cookies?.refreshToken) {
         // Unauthorized
         return res.status(401).json({

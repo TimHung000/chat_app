@@ -1,0 +1,103 @@
+/* chat room search bar */
+
+.addFriendSearchBar {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+
+.addFriendSearchBar > .left {
+    display: flex;
+    flex: 9;
+    align-items: center;
+    gap: 5px;
+}
+
+.addFriendSearchBar > .left > input {
+    font-size: 14px;
+    height: 32px;
+    width: 100%;
+    border: none;
+    outline: none;
+}
+.addFriendSearchBar input::placeholder {
+    color: var(--main-color)
+}
+
+.addFriendSearchBar > .right > button {
+    display: flex;
+    border: none;
+    background-color: var(--main-color-green);
+    color: white;
+    width: 50px;
+    height: 30px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.addFriendSearchBar > .right > button:active {
+    background-color: rgba(46, 164, 79);
+
+}
+.addFriendSearchBar > .right > button:disabled {
+    background-color: grey;
+
+}
+
+
+/* chat room list */
+.addFriendBox {
+    height: calc(100% - 45px);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.addFriendBox .searchMessage,
+.addFriendBox .addMessage {
+    width: 80%;
+    font-size: 16px;
+    color: red
+}
+
+.addFriendBox img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.addFriendBox .name {
+    font-size: 24px;
+    font-weight: 700;
+    color: black;
+}
+
+.addFriendBox button {
+    width: 40%;
+    height: 40px;
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--main-color-green);
+    padding: 10px;
+}
+
+.addFriendBox button:active {
+    background-color: rgba(46, 164, 79);
+}
+
+.addFriendBox button:disabled {
+    background-color: grey;
+}

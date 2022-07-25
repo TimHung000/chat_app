@@ -1,18 +1,19 @@
-import { forwardRef, useEffect } from 'react'
-import { format, render, cancel, register } from 'timeago.js';
+import { useContext } from 'react'
+import { AuthContext } from "../../context/authContext/Auth";
+import jwt_decode from "jwt-decode";
 
-
-const Message = forwardRef(({ message }, ref) => {
-    // console.log(message)
-
+const Message = ({ message }) => {
+    const { auth } = useContext(AuthContext);
+    const userId = jwt_decode(auth?.accessToken).userId;
     return (
-        <div className="messageBoxSend" ref={ref}>
-            <span className="time">{format(message.time)}</span>
+        <div className={message.senderId === userId ? "messageBoxSend" : "messageBoxReceive"}>
+            <span className="time">{message.time}</span>
             <div className="message">
+                {/* {message.message.replace(/ /g, "\u00A0")} */}
                 {message.message}
             </div>
         </div>
     );
-})
+}
 
 export default Message

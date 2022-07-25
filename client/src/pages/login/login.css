@@ -64,9 +64,13 @@
     border: none;
     border-radius: 5px;
     padding: 10px;
-    background-color: #dee5ec;
+    background-color: var(--main-color-green);
     margin-bottom: 20px;
     margin-top: 10px
+}
+
+.loginForm>button:active {
+    background-color: rgba(46, 164, 79);
 }
 
 .loginWrapper .wordBetweenHorizontalLine {

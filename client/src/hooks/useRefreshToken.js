@@ -3,7 +3,7 @@ import { AuthContext } from "../context/authContext/Auth";
 import axios from "../api/axios";
 
 const useRefreshToken = () => {
-    const { auth, setAuth } = useContext(AuthContext);
+    const { setAuth } = useContext(AuthContext);
 
     const refresh = async () => {
         const response = await axios.get('auth/refreshToken', {
@@ -12,11 +12,9 @@ const useRefreshToken = () => {
 
         const accessToken = response?.data?.accessToken;
         setAuth(prev => {
-            // console.log(`prev auth : ${JSON.stringify(prev)}`)
-            // console.log(response.data.accessToken)
             return {
                 ...prev,
-                accessToken: response.data.accessToken
+                accessToken: accessToken
             }
         });
 

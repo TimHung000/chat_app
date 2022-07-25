@@ -251,7 +251,7 @@ export default function Register() {
               <p className="registerBoxBottom">
                 Already registered?<br />
                 <span className="Line">
-                  <a href="#">Sign In</a>
+                  <Link to="/login">Sign In</Link>
                 </span>
               </p>
             </div>

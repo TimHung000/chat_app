@@ -35,16 +35,33 @@
 
 .currentMessageBoxSendMessageBar > textarea {
     width: 80%;
-    height: 80%;
     font-size: 16px;
-    overflow: auto;
-    /* border: none; */
-    /* outline: none; */
+    overflow:visible;
+    border: none;
+    outline: none;
+    resize: none;
 }
 
 .currentMessageBoxSendMessageBar > textarea::placeholder {
     color: var(--main-color-dark);
 }
+
+
+.currentMessageBoxSendMessageBar > textarea::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.currentMessageBoxSendMessageBar > textarea::-webkit-scrollbar {
+    width: 6px;
+    background-color: var(--main-color);
+}
+
+
+.currentMessageBoxSendMessageBar > textarea::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--main-color-dark);
+}
+
 
 .currentMessageBoxSendMessageBar > .items {
     width: 20%;
@@ -56,10 +73,19 @@
 .currentMessageBoxSendMessageBar > .items > button {
     font-size: 16px;
     color: white;
-    font-weight: 700;
+    font-weight: 500;
     width: 100px;
     height: 40px;
     border: none;
-    background-color: var(--main-color);
+    background-color: var(--main-color-green);
     border-radius: 20px;
+}
+
+.currentMessageBoxSendMessageBar > .items > button:active {
+    background-color: rgba(46, 164, 79);
+}
+
+.currentMessageBoxSendMessageBar > .items > button:disabled {
+    background-color: grey;
+
 }

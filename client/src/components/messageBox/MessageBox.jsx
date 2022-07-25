@@ -3,22 +3,18 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import MessageList from "./MessageList";
 import MessageFriendBar from "./MessageFriendBar";
-import { useRef, useState, useEffect, useContext } from "react";
+import { useRef, useContext } from "react";
 import { AuthContext } from "../../context/authContext/Auth";
 import jwt_decode from "jwt-decode";
-import { useParams } from "react-router-dom"
 import axios from "../../api/axios";
 
-const MessageBox = ({ currentChatRoom }) => {
+const MessageBox = ({ currentChatRoom, allMessages, setAllMessages }) => {
   const { auth } = useContext(AuthContext);
   const userId = jwt_decode(auth?.accessToken).userId;
-  const params = useParams();
   const sendMessageRef = useRef();
-  const [allMessages, setAllMessages] = useState([]);
 
-
-  const handleSendMessage = async (e) => {
-    e.preventDefault();
+  const handleSendMessage = async () => {
+    console.log(sendMessageRef.current.value);
     if (sendMessageRef.current.value) {
       const sendMessage = {
         chatRoomId: currentChatRoom.chatRoomId,
@@ -27,28 +23,38 @@ const MessageBox = ({ currentChatRoom }) => {
         time: Date.now(),
       };
       try {
-        const res = await axios.put("/chatroom/addmessage", sendMessage)
-        console.log(res);
+        await axios.put("/chatroom/addmessage", sendMessage)
         setAllMessages(prev => [sendMessage, ...prev]);
         sendMessageRef.current.value = "";
-      } catch(err) {
+      } catch (err) {
         console.log(err);
       }
+    }
+  }
+
+  const handleInputKeyDown = (e) => {
+    if(e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
     }
   }
 
   return (
     <div className="messageBox">
       <div className="top">
-        <MessageFriendBar />
+        <MessageFriendBar currentChatRoom={currentChatRoom} />
       </div>
       <div className="middle">
-        <MessageList messages={allMessages} setAllMessages={setAllMessages} />
+        <MessageList allMessages={allMessages} setAllMessages={setAllMessages} currentChatRoom={currentChatRoom} />
       </div>
       <div className="bottom">
 
         <div className="currentMessageBoxSendMessageBar">
-          <textarea placeholder="Please enter a message" ref={sendMessageRef} />
+          <textarea
+            placeholder="Please enter a message"
+            ref={sendMessageRef}
+            onKeyDown={handleInputKeyDown}
+          />
           <div className="items">
             <SentimentSatisfiedAltIcon
               sx=
@@ -70,7 +76,7 @@ const MessageBox = ({ currentChatRoom }) => {
                 }
               }}
             />
-            <button onClick={handleSendMessage}> Send </button>
+            <button onClick={handleSendMessage} > Send </button>
           </div>
         </div>
 

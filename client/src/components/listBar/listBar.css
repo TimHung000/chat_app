@@ -1,0 +1,30 @@
+/* layout */
+.listBar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.listBar > .top {
+    width: 100%;
+    height: calc(100% - 60px);
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--main-color);
+}
+
+.listBar > .bottom {
+    height: 60px;
+}
+
+
+/* Navigation of chatBox, Friend, addFriend */
+
+.listBar > .bottom > .items {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}

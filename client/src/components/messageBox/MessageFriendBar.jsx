@@ -2,12 +2,12 @@ import "./messageFriendBar.css"
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
-const MessageFriendBar = () => {
+const MessageFriendBar = ({currentChatRoom}) => {
     return (
         <div className="currentMessageBoxFriendBar">
             <div className="currentFriend">
-                <img src="/assets/person/noAvatar.png" alt="" />
-                <div className="name">Test</div>
+                <img src={currentChatRoom?.friendPicture === "" ? "/assets/person/noAvatar.png" : currentChatRoom.friendPicture } alt="" />
+                <div className="name">{currentChatRoom.friendName}</div>
             </div>
             <MoreVertIcon
                 sx=

@@ -1,5 +1,62 @@
-/* friend or chat list */
-.friendListBox a {
+/* Friend Search bar */
+
+.friendSearchBox {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+
+.friendSearchBox > .left {
+    display: flex;
+    flex: 9;
+    align-items: center;
+    gap: 5px;
+}
+
+.friendSearchBox >.left > input {
+    font-size: 14px;
+    height: 32px;
+    width: 100%;
+    border: none;
+    outline: none;
+}
+.friendSearchBox input::placeholder {
+    color: var(--main-color)
+}
+
+/* scrollbar */
+
+.friendList {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+}
+
+.friendList:hover {
+    overflow-y: scroll;
+}
+
+.friendList::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.friendList::-webkit-scrollbar {
+    width: 6px;
+    background-color: var(--main-color)
+}
+
+.friendList::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--main-color-dark)
+}
+
+/* friend  list */
+.friendList a {
     text-decoration: none;
 }
 

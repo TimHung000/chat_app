@@ -1,29 +1,25 @@
 import "./bottomBox.css"
-import FriendAndChatList from "../friendAndChatList/FriendAndChatList";
+import ListBar from "../listBar/ListBar";
 import MessageBox from "../messageBox/MessageBox";
-import { Navigate, useParams, NavLink } from "react-router-dom";
-import { useEffect, useContext, useState } from "react";
-import { AuthContext } from "../../context/authContext/Auth";
-import jwt_decode from "jwt-decode";
+import NonMessageBox from "../nonMessageBox/NonMessageBox";
+import { useState } from "react";
 
 
 const BottomBox = () => {
-    const [ currentChatRoom, setCurrentChatRoom ] = useState();
+    const [currentChatRoom, setCurrentChatRoom] = useState();
+    const [ allMessages, setAllMessages ] = useState([]);
 
-    // useEffect(() => {
-    //     console.log(currentChatRoom);
-    // },[currentChatRoom])
 
     return (
         <div className="bottomBox">
             <div className="bottomLeft">
-                <FriendAndChatList setCurrentChatRoom={setCurrentChatRoom} />
+                <ListBar setCurrentChatRoom={setCurrentChatRoom} currentChatRoom={currentChatRoom} setAllMessages={setAllMessages}/>
             </div>
             <div className="bottomRight">
                 {
                     currentChatRoom
-                        ? <MessageBox currentChatRoom={currentChatRoom} />
-                        : <p>no id</p>
+                        ? <MessageBox currentChatRoom={currentChatRoom} allMessages={allMessages} setAllMessages={setAllMessages}/>
+                        : <NonMessageBox />
                 }
             </div>
         </div>

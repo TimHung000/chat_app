@@ -37,7 +37,8 @@
     align-items: flex-end;
     justify-content: flex-end;
     margin-left: 30%;
-    gap: 5px
+    gap: 5px;
+    word-break: break-all;
 }
 
 .messageBoxSend > .message {
@@ -45,6 +46,7 @@
     padding: 10px 15px;
     position: relative;
     background-color: var(--main-color-green);
+    white-space: pre-wrap;
 }
 
 .messageBoxSend > .time {
@@ -93,6 +95,7 @@
     border-radius: 10px;
     padding: 10px 15px;
     background-color: var(--main-color);
+    white-space: pre-wrap;
 }
 
 .messageBoxReceive > .time {

@@ -1,16 +1,16 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useEffect, useState, useContext, useLayoutEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import useRefreshToken from "../hooks/useRefreshToken";
 import { AuthContext } from "../context/authContext/Auth";
 
 const ProtectedRoutes = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const { auth, setAuth } = useContext(AuthContext);
+    const { auth } = useContext(AuthContext);
     const refreshToken = useRefreshToken();
     const location = useLocation();
 
     // go to login if refreshToken is expired or null
-    useLayoutEffect(() => {
+    useEffect(() => {
         const verifyRefreshToken = async () => {
             try {
                 await refreshToken();
@@ -30,12 +30,7 @@ const ProtectedRoutes = () => {
             setIsLoading(false);
         }
 
-    },[])
-
-    // useEffect(() => {
-    //     console.log(`isLoading: ${isLoading}`)
-    //     console.log(`aT: ${JSON.stringify(auth?.accessToken)}`)
-    // }, [isLoading])
+    },[auth, refreshToken])
 
     return (
         <>

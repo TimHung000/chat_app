@@ -1,6 +1,6 @@
 import "./login.css"
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext/Auth";
 import axios from "../../api/axios";
@@ -19,20 +19,17 @@ const Login = () => {
   const [errMsg, setErrMsg] = useState('');
 
   // go back to the prev page after login
-  const location = useLocation();
   const navigate = useNavigate();
-  const prevPage = location.state?.from || "/";
-
 
   useEffect(() => {
     if (auth?.accessToken) {
-      navigate(prevPage);
+      navigate("/");
     }
-  }, [auth])
+  }, [auth, navigate])
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
+
     try {
       const response = await axios.post(
         "auth/login",
@@ -92,12 +89,12 @@ const Login = () => {
                 Login
               </button>
             </form>
-            <div className="wordBetweenHorizontalLine">
+            {/* <div className="wordBetweenHorizontalLine">
               <span>or try another login method</span>
 
             </div>
 
-            <button>still developing</button>
+            <button>still developing</button> */}
             <Link to="/register" className="link-style">
               register
             </Link>
