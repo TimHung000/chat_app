@@ -4,13 +4,11 @@ const { default: mongoose } = require('mongoose');
 
 // create New CHatRoom
 const handleCreateChatRoom = async (req, res) => {
-    // console.log(req.body);
     const newChatRoom = new ChatRoom({
         roomParticipant: [req.body.userId, req.body.friendId]
     })
     try {
         const savedChatRoom = await newChatRoom.save();
-        // console.log(savedChatRoom);
         res.status(200).json(savedChatRoom);
     } catch (err) {
         res.status(500).json(err)
@@ -44,10 +42,8 @@ const handleGetChatRoom = async (req, res) => {
 
 // add new Message into ChatRoom
 const handleAddMessageByChatRoomId = async (req, res) => {
-    // console.log(req.body);
     try {
         const chatRoom = await ChatRoom.findById(req.body.chatRoomId);
-        console.log(chatRoom);
         const updatedChatRoom = await ChatRoom.findByIdAndUpdate(
             req.body.chatRoomId,
             {
@@ -65,7 +61,6 @@ const handleAddMessageByChatRoomId = async (req, res) => {
             { new: true }
         );
 
-        console.log(updatedChatRoom);
         res.status(200).json(updatedChatRoom);
     } catch (err) {
         res.status(500).json(err);
@@ -76,13 +71,9 @@ const handleAddMessageByChatRoomId = async (req, res) => {
 // use to implement lazy loading
 const handleGetConversationsFromChatRoom = async (req, res) => {
 
-    // console.log(req.params);
-    // console.log(req.query);
     const chatRoomId = req.params.chatRoomId.trim();
     const lastMessageId = req.query.lastMessageId || -1;
     const size = parseInt(req.query.size.trim() || 0);
-    // console.log(size);
-    // console.log(lastMessageId);
     try {
         let index;
         if (lastMessageId !== -1) {

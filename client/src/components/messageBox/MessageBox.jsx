@@ -3,18 +3,45 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import MessageList from "./MessageList";
 import MessageFriendBar from "./MessageFriendBar";
-import { useRef, useContext } from "react";
+import { useRef, useContext, useEffect } from "react";
 import { AuthContext } from "../../context/authContext/Auth";
 import jwt_decode from "jwt-decode";
 import axios from "../../api/axios";
+import { io } from "socket.io-client";
+
+
 
 const MessageBox = ({ currentChatRoom, allMessages, setAllMessages }) => {
   const { auth } = useContext(AuthContext);
   const userId = jwt_decode(auth?.accessToken).userId;
   const sendMessageRef = useRef();
+  const socket = useRef();
+
+  useEffect(() => {
+    socket.current = io("http://localhost:8800");
+
+    socket.current.on("getMessage", (data) => {
+      const message = {
+        _id: "",
+        message: data.message,
+        senderId: data.senderId,
+        time: data.time
+      }
+      setAllMessages(prev => [ message , ...prev ]);
+    })
+    return () => socket.current.close();
+  }, []);
+
+  useEffect(() => {
+    if(currentChatRoom) {
+      socket.current.emit("join", { userId, chatRoomId: currentChatRoom.chatRoomId });
+    }
+    return () => socket.current.emit("leave", userId)
+  }, [auth, currentChatRoom])
+
+
 
   const handleSendMessage = async () => {
-    console.log(sendMessageRef.current.value);
     if (sendMessageRef.current.value) {
       const sendMessage = {
         chatRoomId: currentChatRoom.chatRoomId,
@@ -24,6 +51,7 @@ const MessageBox = ({ currentChatRoom, allMessages, setAllMessages }) => {
       };
       try {
         await axios.put("/chatroom/addmessage", sendMessage)
+        socket.current.emit("sendMessage", sendMessage);
         setAllMessages(prev => [sendMessage, ...prev]);
         sendMessageRef.current.value = "";
       } catch (err) {
@@ -33,7 +61,7 @@ const MessageBox = ({ currentChatRoom, allMessages, setAllMessages }) => {
   }
 
   const handleInputKeyDown = (e) => {
-    if(e.key === "Enter" && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
     }

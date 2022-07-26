@@ -1,6 +1,8 @@
 import "./messageList.css"
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect, useContext } from "react";
+import { AuthContext } from "../../context/authContext/Auth";
 import useMessages from "../../hooks/useMessages";
+import jwt_decode from "jwt-decode";
 import Message from "./Message";
 
 const fetchSize = 5;
@@ -10,6 +12,7 @@ const MessageList = ({ allMessages, setAllMessages, currentChatRoom }) => {
     const { isFetching, hasNextMessage } = useMessages(currentLastMessage, fetchSize, setAllMessages, currentChatRoom);
     const intersectObserverRef = useRef();
     const bottomOfChatRef = useRef();
+    const { auth } = useContext(AuthContext);
 
 
     const lastMessageRef = useCallback((topMessage) => {
@@ -32,7 +35,7 @@ const MessageList = ({ allMessages, setAllMessages, currentChatRoom }) => {
 
     }, [isFetching, hasNextMessage, allMessages]);
 
-    console.log(allMessages);
+    // console.log(allMessages);
 
 
     return (

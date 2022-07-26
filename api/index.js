@@ -21,15 +21,45 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+const io = socketio(server, {
+  cors: {
+    origin: "http://localhost:3000",
+  }
+});
 
+const { addUser, removeUser, getUser, getUsers } = require("./controllers/socket");
 
 // Run when client connects
 io.on("connection", (socket) => {
   console.log("a new user connected.");
 
+  socket.on("join", (user) => {
+    socket.join(user.chatRoomId);
+    addUser(user.userId, user.chatRoomId, socket.id)
+    console.log(getUsers());
+    console.log(`${user.userId} join the room ${user.chatRoomId}`);
+  })
+
+  socket.on("leave", (userId) => {
+    const user = getUser(userId);
+    if (user) {
+      socket.leave(user.chatRoomId);
+      removeUser(userId);
+      console.log(getUsers());
+      console.log(`${user.userId} leave the room ${user.chatRoomId}`);
+    }
+  })
+
+  socket.on("sendMessage", (message) => {
+    socket.broadcast.to(message.chatRoomId).emit("getMessage", message);
+    console.log(message)
+  })
+
+
   socket.on("disconnect", () => {
     console.log("a user had left.");
+    removeUser(socket.id);
+    io.emit("getUsers", getUsers());
   })
 })
 
