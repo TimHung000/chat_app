@@ -50,6 +50,7 @@ const Login = () => {
       }
 
     } catch (err) {
+      console.log(111);
       console.log(err);
       if (!err?.response) {
         setErrMsg("No Server Response")
@@ -89,17 +90,8 @@ const Login = () => {
                 Login
               </button>
             </form>
-            {/* <div className="wordBetweenHorizontalLine">
-              <span>or try another login method</span>
-
-            </div>
-
-            <button>still developing</button> */}
             <Link to="/register" className="link-style">
               register
-            </Link>
-            <Link to="/forgotAuth" className="link-style">
-              Forgot your email or password?
             </Link>
           </div>
 

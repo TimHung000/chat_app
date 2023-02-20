@@ -109,13 +109,7 @@ export default function Register() {
   return (
     <div className="register">
       <div className="registerWrapper">
-        <div className="registerLeft">
-          <h3 className="registerLogo">Lamasocial</h3>
-          <span className="registerDesc">
-            Connect with friends and the world around you on Lamasocial.
-          </span>
-        </div>
-        <div className="registerRight">
+        <div className="registerContainer">
           {success ? (
             <div className="registerBox">
                 <h1 className="registerBoxName">Success</h1>
@@ -256,24 +250,6 @@ export default function Register() {
               </p>
             </div>
           )}
-        </div>
-        <div className="registerFooter">
-          <div className="footerLanguageChoice">
-            <ul className="footerUl">
-              <li>English(Us)</li>
-              <li>中文(台灣)</li>
-            </ul>
-          </div>
-          <hr className="footerHr" />
-          <div className="footerOthers">
-            <ul className="footerUl">
-              <li>Terms</li>
-            </ul>
-          </div>
-          <hr className="footerHr" />
-          <div className="footerCompany">
-            <p>Tim 2022</p>
-          </div>
         </div>
       </div >
     </div >

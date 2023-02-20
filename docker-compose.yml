@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  chatapp_mongodb:
+    image: mongo:latest
+    container_name: chatapp_mongodb
+    ports:
+      - 27017:27017
+
+  chatapp_backend:
+    build: ./api
+    container_name: chatapp_backend
+    ports:
+      - 8800:8800
+    links:
+      - chatapp_mongodb
+    depends_on:
+      - chatapp_mongodb
+    restart: on-failure
+  
+  chatapp_frontend:
+    build: ./client
+    container_name: chatapp_frontend
+    ports: 
+      - 3000:3000
+    links:
+      - chatapp_backend
+    restart: on-failure

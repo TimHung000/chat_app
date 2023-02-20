@@ -2,7 +2,7 @@ const User = require('../models/User');
 const ChatRoom = require("../models/ChatRoom");
 const { default: mongoose } = require('mongoose');
 
-// create New CHatRoom
+// create New ChatRoom
 const handleCreateChatRoom = async (req, res) => {
     const newChatRoom = new ChatRoom({
         roomParticipant: [req.body.userId, req.body.friendId]
