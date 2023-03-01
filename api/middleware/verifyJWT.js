@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 
-const verify = (req, res, next) => {
+const verifyJWT = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if(authHeader) {
         const token = authHeader.split(" ")[1];
@@ -29,3 +29,5 @@ const verify = (req, res, next) => {
         })
     }
 }
+
+module.exports = verifyJWT

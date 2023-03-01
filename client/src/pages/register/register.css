@@ -48,6 +48,11 @@ html,body,#root,.register{
   margin-bottom: 20px;
 }
 
+.registerBoxLogin {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .registerForm {
   display: flex;
   flex-direction: column;
@@ -103,6 +108,18 @@ html,body,#root,.register{
 }
 
 .registerErrorMsg {
+  width: 90%;
+  align-self: center;
+  margin-bottom: 5px;
+  font-size: 14px;
+  border-radius: 10px;
+  background: red;
+  opacity: 0.7;
+  color: #fff;
+  padding: 10px;
+}
+
+.errorMsg {
   width: 90%;
   align-self: center;
   margin-bottom: 5px;

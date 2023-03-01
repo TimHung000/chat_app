@@ -18,7 +18,6 @@ const MessageList = ({ allMessages, setAllMessages, currentChatRoom }) => {
     const lastMessageRef = useCallback((topMessage) => {
         if (isFetching) return;
 
-        // discard the prev end observer
         if (intersectObserverRef.current) {
             intersectObserverRef.current.disconnect();
         }
@@ -35,7 +34,6 @@ const MessageList = ({ allMessages, setAllMessages, currentChatRoom }) => {
 
     }, [isFetching, hasNextMessage, allMessages]);
 
-    // console.log(allMessages);
 
 
     return (
@@ -48,7 +46,6 @@ const MessageList = ({ allMessages, setAllMessages, currentChatRoom }) => {
                 })
             }
             <div ref={lastMessageRef}></div>
-            {/* <button onClick={() => bottomOfChatRef.current?.scrollIntoView({ behavior: "smooth" })} ref={lastMessageRef} > toBottom</button> */}
         </div>
     );
 }

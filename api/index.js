@@ -1,6 +1,3 @@
-// const helmet = require("helmet");
-// const morgan = require("morgan");
-// const multer = require("multer");
 const path = require("path");
 const http = require("http");
 const express = require("express");
@@ -14,6 +11,7 @@ const cors = require("cors");
 
 
 const credentials = require('./middleware/credentials.js');
+const verifyJWT = require('./middleware/verifyJWT.js');
 const corsOptions = require('./config/corsOptions');
 const connectDB = require('./config/dbConnection');
 const PORT = process.env.PORT || 8800;
@@ -70,50 +68,22 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
 
 
-// middleware logger
 
 // handle options credentials check - before CORS
 app.use(credentials);
+app.use(verifyJWT);
 
 // Cross Origin Resource Sharing
 app.use(cors(corsOptions));
 
-// build-in middleware to handle urlencoded from data
-// app.use(express.urlencoded({ extends: true }));
-
 // change req to json
 app.use(express.json());
 
-// 
-// app.use(helmet());
-
-//
-// app.use(morgan("common"));
-
-//
 app.use(cookieParser());
 
 // serve static files
 app.use("/", express.static(path.join(__dirname, "/public")));
 
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "public/images");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, req.body.name);
-//   },
-// });
-
-// const upload = multer({ storage: storage });
-// app.post("/api/upload", upload.single("file"), (req, res) => {
-//   try {
-//     return res.status(200).json("File uploded successfully");
-//   } catch (error) {
-//     console.error(error);
-//   }
-// });
 
 // routes
 app.use("/", require("./routes/root"));

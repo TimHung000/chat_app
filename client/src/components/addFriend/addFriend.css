@@ -66,7 +66,10 @@
 .addFriendBox .addMessage {
     width: 80%;
     font-size: 16px;
-    color: red
+    color: red;
+    align-items: center;
+    justify-content: center;
+
 }
 
 .addFriendBox img {

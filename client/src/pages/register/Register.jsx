@@ -113,7 +113,7 @@ export default function Register() {
           {success ? (
             <div className="registerBox">
                 <h1 className="registerBoxName">Success</h1>
-                <p>
+                <p className="registerBoxLogin">
                   <Link to="/login">Login</Link>
                 </p>
             </div>

@@ -1,6 +1,5 @@
 import "./app.css";
 import ProtectedRoutes from "./components/ProtectedRoutes";
-// import PublicRoutes from "./components/PublicRoutes";
 import Home from "./pages/home/Home";
 import Register from "./pages/register/Register";
 import Login from "./pages/login/Login"
@@ -20,10 +19,5 @@ function App() {
     </Routes >
   );
 }
-
-// {<Route path="/profile/:username" element={<Profile />} />}
-// { <Route path="/" element={<Home />} /> }
-
-
 
 export default App;
