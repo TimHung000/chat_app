@@ -4,19 +4,24 @@
 3. `docker compose run`
 4. go to "localhost:3000" to start the chat app
 
-
 # Backend
-1. Language: node.js
+1. runtime environment: node.js
 2. Web framework: express
 3. Database: mongodb (store messages and user info)
-4. User Authentication Method: Jason Web Token
-5. Realtime Chatting: socket.io
 
 # Frontend
 1. Framework: React 
 
+# Feature
+1. User Authentication Method: Jason Web Token
+2. Realtime Chatting: socket.io
+
+# Objective
+* Learning how Web application work
+* Learning how to separate frontend and backend
+* Learning the authentication method  
 
 # app photo
-![login](pic\login.png)
-![register](pic\register.png)
-![chat](pic\chat.png)
+![login](\img\login.png)
+![register](img\register.png)
+![chat](\img\chat.png)
