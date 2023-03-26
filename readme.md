@@ -22,6 +22,6 @@
 * Learning the authentication method  
 
 # app photo
-![login](\img\login.png)
-![register](img\register.png)
-![chat](\img\chat.png)
+![login](/img/login.png)
+![register](/img/register.png)
+![chat](/img/chat.png)
